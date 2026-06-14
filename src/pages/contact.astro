@@ -27,7 +27,7 @@ import { site } from '../data/site';
           Until an endpoint is set, submitting shows an on-page confirmation so
           the form can be tested. No data is sent anywhere.
         -->
-        <form id="contact-form" class="contact-form" novalidate data-endpoint="">
+        <form id="contact-form" class="contact-form" method="post" data-endpoint="">
           <div class="field">
             <label for="name">Your name <span aria-hidden="true">*</span></label>
             <input id="name" name="name" type="text" required autocomplete="name" />
@@ -223,6 +223,8 @@ import { site } from '../data/site';
   }
 
   if (form && status) {
+    form.noValidate = true;
+
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
       status.textContent = '';
