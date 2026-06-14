@@ -1,0 +1,272 @@
+/* -----------------------------------------------------------------------------
+   Fieldcraft Consulting — global styles & design tokens
+   White background, dark navy/charcoal text, earthy terracotta accent.
+   System font stack keeps the site fast-loading (no external font requests).
+----------------------------------------------------------------------------- */
+
+:root {
+  /* Brand palette */
+  --color-bg: #ffffff;
+  --color-bg-alt: #f5f2ec; /* warm off-white for alternating sections */
+  --color-navy: #15263b; /* headings */
+  --color-text: #2b3038; /* body charcoal */
+  --color-muted: #5b626d;
+  --color-accent: #bf6230; /* earthy terracotta / ochre */
+  --color-accent-dark: #9d4d22;
+  --color-accent-soft: #f6e7dc;
+  --color-border: #e5ded4;
+
+  /* Layout */
+  --container: 1140px;
+  --radius: 10px;
+  --shadow: 0 1px 2px rgba(21, 38, 59, 0.06), 0 8px 24px rgba(21, 38, 59, 0.07);
+  --shadow-sm: 0 1px 2px rgba(21, 38, 59, 0.08);
+
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
+    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji';
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-sans);
+  color: var(--color-text);
+  background: var(--color-bg);
+  line-height: 1.65;
+  font-size: 1.0625rem;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  color: var(--color-navy);
+  line-height: 1.2;
+  margin: 0 0 0.6em;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+h1 {
+  font-size: clamp(2rem, 5vw, 3rem);
+}
+h2 {
+  font-size: clamp(1.6rem, 3.5vw, 2.25rem);
+}
+h3 {
+  font-size: 1.3rem;
+}
+
+p {
+  margin: 0 0 1.1em;
+}
+
+a {
+  color: var(--color-accent-dark);
+  text-decoration: none;
+}
+a:hover {
+  text-decoration: underline;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+ul {
+  margin: 0 0 1.1em;
+  padding-left: 1.2em;
+}
+li {
+  margin-bottom: 0.4em;
+}
+
+/* Layout helpers ---------------------------------------------------------- */
+.container {
+  width: 100%;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 1.25rem;
+}
+
+.section {
+  padding: clamp(3rem, 6vw, 5rem) 0;
+}
+.section--alt {
+  background: var(--color-bg-alt);
+  border-top: 1px solid var(--color-border);
+  border-bottom: 1px solid var(--color-border);
+}
+.section--navy {
+  background: var(--color-navy);
+}
+.section--navy h1,
+.section--navy h2,
+.section--navy h3 {
+  color: #fff;
+}
+.section--navy p {
+  color: #d7dde6;
+}
+
+.section-head {
+  max-width: 720px;
+  margin-bottom: 2.5rem;
+}
+.section-head.center {
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.eyebrow {
+  display: inline-block;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--color-accent);
+  margin-bottom: 0.75rem;
+}
+
+.lead {
+  font-size: 1.2rem;
+  color: var(--color-muted);
+}
+
+/* Buttons ----------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.8rem 1.5rem;
+  border-radius: var(--radius);
+  font-weight: 600;
+  font-size: 1rem;
+  border: 2px solid transparent;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease,
+    transform 0.05s ease;
+  text-decoration: none;
+}
+.btn:hover {
+  text-decoration: none;
+}
+.btn:active {
+  transform: translateY(1px);
+}
+.btn--primary {
+  background: var(--color-accent);
+  color: #fff;
+  border-color: var(--color-accent);
+}
+.btn--primary:hover {
+  background: var(--color-accent-dark);
+  border-color: var(--color-accent-dark);
+}
+.btn--secondary {
+  background: transparent;
+  color: var(--color-navy);
+  border-color: var(--color-navy);
+}
+.btn--secondary:hover {
+  background: var(--color-navy);
+  color: #fff;
+}
+.btn--on-navy {
+  background: #fff;
+  color: var(--color-navy);
+  border-color: #fff;
+}
+.btn--on-navy:hover {
+  background: transparent;
+  color: #fff;
+}
+.btn-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+/* Cards ------------------------------------------------------------------- */
+.card-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+}
+
+.card {
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius);
+  padding: 1.6rem;
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.15s ease, transform 0.15s ease,
+    border-color 0.15s ease;
+  height: 100%;
+}
+.card h3 {
+  margin-bottom: 0.5rem;
+}
+.card p:last-child {
+  margin-bottom: 0;
+}
+a.card:hover {
+  text-decoration: none;
+  box-shadow: var(--shadow);
+  transform: translateY(-3px);
+  border-color: var(--color-accent);
+}
+.card__more {
+  color: var(--color-accent-dark);
+  font-weight: 600;
+  margin-top: 0.5rem;
+  display: inline-block;
+}
+
+/* Utility ----------------------------------------------------------------- */
+.text-center {
+  text-align: center;
+}
+.mt-2 {
+  margin-top: 2rem;
+}
+.skip-link {
+  position: absolute;
+  left: -999px;
+  top: 0;
+  background: var(--color-navy);
+  color: #fff;
+  padding: 0.6rem 1rem;
+  z-index: 200;
+}
+.skip-link:focus {
+  left: 0;
+}
+
+:focus-visible {
+  outline: 3px solid var(--color-accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    scroll-behavior: auto !important;
+    transition: none !important;
+  }
+}

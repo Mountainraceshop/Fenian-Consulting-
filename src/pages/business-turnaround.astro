@@ -1,0 +1,169 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const pressures = [
+  'falling revenue',
+  'broken systems',
+  'poor customer flow',
+  'weak marketing',
+  'staff problems',
+  'cash-flow stress',
+  'owner burnout',
+  'loss of operational control',
+];
+
+const includes = [
+  'urgent business assessment',
+  'owner interview and situation review',
+  'immediate stabilisation plan',
+  'review of cash flow pressure points',
+  'review of customer pipeline',
+  'operational triage',
+  'marketing and sales reset',
+  'staff and workflow review where required',
+  'daily/weekly action control',
+  'supplier/customer communication support',
+  'implementation of practical systems',
+  'recovery roadmap',
+  'ongoing reporting to the owner',
+];
+---
+
+<Layout
+  title="Business Turnaround"
+  description="High-level intervention for businesses under serious pressure. Fieldcraft Consulting steps in to stabilise operations, rebuild systems and drive the recovery plan."
+>
+  <PageHero
+    eyebrow="Business Turnaround"
+    title="When the business needs someone to step in and take control"
+    intro="Some businesses do not need more advice. They need someone to step in, take control of the recovery process and drive the rebuild."
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <h2>Who this is for</h2>
+      <p>
+        Fieldcraft Turnaround is for businesses under serious pressure. If your
+        business is facing several of these at once, it is time to act.
+      </p>
+      <ul class="pressure-grid">
+        {pressures.map((p) => <li>{p}</li>)}
+      </ul>
+      <p>
+        This service is priced according to the size, urgency, location, risk and
+        level of involvement required.
+      </p>
+      <span class="price-tag">Price on application</span>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">What's involved</span>
+        <h2>A hands-on recovery process</h2>
+        <p class="lead">
+          We work inside the business — not from a distance — to stabilise, rebuild
+          and drive the recovery.
+        </p>
+      </div>
+      <ul class="ticks two-up">
+        {includes.map((item) => <li>{item}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <div class="tier-note">
+        <p>
+          Fieldcraft Consulting cannot guarantee that every business can be saved.
+          What we can do is bring clear thinking, direct action, practical systems
+          and disciplined recovery planning when the business needs it most.
+        </p>
+      </div>
+      <a class="btn btn--primary" href="/contact/">Request a Turnaround Assessment</a>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Under serious pressure? Let's talk now."
+    text="The sooner we look at the situation, the more options you have. Request a turnaround assessment and we will respond quickly."
+  />
+</Layout>
+
+<style>
+  .narrow {
+    max-width: 760px;
+  }
+  .price-tag {
+    display: inline-block;
+    background: var(--color-accent-soft);
+    color: var(--color-accent-dark);
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+  }
+  .pressure-grid {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 0.6rem;
+    margin: 1.25rem 0;
+  }
+  .pressure-grid li {
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-accent);
+    border-radius: var(--radius);
+    padding: 0.6rem 0.9rem;
+    color: var(--color-navy);
+    font-weight: 500;
+  }
+  ul.ticks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul.ticks.two-up {
+    columns: 2;
+    column-gap: 2.5rem;
+  }
+  ul.ticks li {
+    position: relative;
+    padding-left: 1.6rem;
+    margin-bottom: 0.6rem;
+    break-inside: avoid;
+  }
+  ul.ticks li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.7rem;
+    height: 0.4rem;
+    border-left: 2px solid var(--color-accent);
+    border-bottom: 2px solid var(--color-accent);
+    transform: rotate(-45deg);
+  }
+  .tier-note {
+    border-left: 4px solid var(--color-accent);
+    background: var(--color-bg-alt);
+    padding: 0.5rem 1.25rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    margin-bottom: 1.75rem;
+    font-style: italic;
+  }
+  .tier-note p {
+    margin: 0.75rem 0;
+  }
+  @media (max-width: 640px) {
+    ul.ticks.two-up {
+      columns: 1;
+    }
+  }
+</style>

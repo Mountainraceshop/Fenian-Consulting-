@@ -1,0 +1,289 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const tiers = [
+  {
+    id: 'mentor',
+    badge: 'Tier 1',
+    title: 'Fieldcraft Mentor',
+    subtitle: 'Phone-based mentoring for small business owners',
+    intro:
+      'This is the entry-level coaching option for business owners who need someone practical to talk to, test ideas with and stay accountable to.',
+    bestForHeading: 'Best for',
+    bestFor: [
+      'sole traders',
+      'small workshop owners',
+      'regional businesses',
+      'new business owners',
+      'owners stuck on marketing, pricing or customer flow',
+      'people who need direction but are not ready for a full audit',
+    ],
+    includesHeading: 'Includes',
+    includes: [
+      'scheduled phone or video mentoring',
+      'practical problem-solving',
+      'review of current challenges',
+      'simple action list after each session',
+      'accountability and follow-up',
+      'advice on marketing, pricing, operations and customer communication',
+    ],
+    cta: 'Start with Mentor Support',
+  },
+  {
+    id: 'business-audit',
+    badge: 'Tier 2',
+    title: 'Fieldcraft Business Audit',
+    subtitle: 'A complete business review and action plan',
+    intro:
+      'This is for businesses that need a proper review, not just a quick chat. Fieldcraft Consulting reviews the business from the outside in and the inside out. We look at how the business presents, how it sells, how it operates, where money is leaking, where customers are being lost and what needs to change first.',
+    includesHeading: 'Includes',
+    includes: [
+      'business discovery session',
+      'review of current products/services',
+      'SWOT analysis',
+      'marketing and customer-flow review',
+      'pricing and offer review',
+      'operations and workflow review',
+      'staff, process and admin review where relevant',
+      'website/social media/customer message review',
+      'practical action plan',
+      'priority list: urgent, important, later',
+      '30/60/90 day improvement roadmap',
+    ],
+    bestForHeading: 'Best for',
+    bestFor: [
+      'businesses with falling enquiries',
+      'owners who feel overwhelmed',
+      'businesses preparing for growth',
+      'businesses preparing for sale',
+      'businesses that have lost direction',
+      'clubs or organisations with declining attendance',
+    ],
+    cta: 'Book a Business Audit',
+  },
+  {
+    id: 'turnaround',
+    badge: 'Tier 3',
+    title: 'Fieldcraft Turnaround',
+    subtitle: 'High-level intervention for businesses in serious trouble',
+    intro:
+      'This is the works package. Some businesses do not need more advice. They need someone to step in, take control of the recovery process and drive the rebuild.',
+    extra:
+      'Fieldcraft Turnaround is for businesses under serious pressure: falling revenue, broken systems, poor customer flow, weak marketing, staff problems, cash-flow stress, owner burnout or loss of operational control. This service is priced according to the size, urgency, location, risk and level of involvement required.',
+    includesHeading: 'Includes',
+    includes: [
+      'urgent business assessment',
+      'owner interview and situation review',
+      'immediate stabilisation plan',
+      'review of cash flow pressure points',
+      'review of customer pipeline',
+      'operational triage',
+      'marketing and sales reset',
+      'staff and workflow review where required',
+      'daily/weekly action control',
+      'supplier/customer communication support',
+      'implementation of practical systems',
+      'recovery roadmap',
+      'ongoing reporting to the owner',
+    ],
+    note: 'Fieldcraft Consulting cannot guarantee that every business can be saved. What we can do is bring clear thinking, direct action, practical systems and disciplined recovery planning when the business needs it most.',
+    cta: 'Request a Turnaround Assessment',
+  },
+];
+---
+
+<Layout
+  title="Business Coaching"
+  description="Practical business coaching for owners who need clear advice, honest feedback and a plan they can actually use. Three levels: Mentor, Business Audit and Turnaround."
+>
+  <PageHero eyebrow="Business Coaching" title="Business coaching that gives you a plan you can actually use">
+    <p>
+      Running a small business can be lonely, especially when the phones stop,
+      cash flow tightens, staff become difficult, customers disappear or the
+      owner no longer knows which problem to fix first.
+    </p>
+    <p>
+      Fieldcraft Consulting provides practical business coaching for owners who
+      need clear advice, honest feedback and a plan they can actually use.
+    </p>
+  </PageHero>
+
+  <!-- Tier quick nav -->
+  <section class="section tiers-nav-section">
+    <div class="container">
+      <div class="tiers-nav">
+        {
+          tiers.map((tier) => (
+            <a href={`#${tier.id}`} class="tier-pill">
+              <strong>{tier.badge}</strong>
+              <span>{tier.title}</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <!-- Tier detail -->
+  {
+    tiers.map((tier, i) => (
+      <section
+        id={tier.id}
+        class:list={['section', 'tier', { 'section--alt': i % 2 === 1 }]}
+      >
+        <div class="container">
+          <div class="tier-head">
+            <span class="eyebrow">{tier.badge}</span>
+            <h2>{tier.title}</h2>
+            <p class="tier-subtitle">{tier.subtitle}</p>
+            <span class="price-tag">Price on application</span>
+          </div>
+
+          <p class="tier-intro">{tier.intro}</p>
+          {tier.extra && <p>{tier.extra}</p>}
+
+          <div class="tier-lists">
+            <div class="tier-list-block">
+              <h3>{tier.includesHeading}</h3>
+              <ul class="ticks">
+                {tier.includes.map((item) => (
+                  <li>{item}</li>
+                ))}
+              </ul>
+            </div>
+            {tier.bestFor && (
+              <div class="tier-list-block">
+                <h3>{tier.bestForHeading}</h3>
+                <ul class="ticks">
+                  {tier.bestFor.map((item) => (
+                    <li>{item}</li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
+
+          {tier.note && <p class="tier-note">{tier.note}</p>}
+
+          <a class="btn btn--primary" href="/contact/">
+            {tier.cta}
+          </a>
+        </div>
+      </section>
+    ))
+  }
+
+  <CtaBand
+    heading="Not sure which level is right for you?"
+    text="Tell us where your business is at and we will recommend the most practical place to start — Mentor, Business Audit or Turnaround."
+  />
+</Layout>
+
+<style>
+  .tiers-nav-section {
+    padding-top: 2rem;
+    padding-bottom: 0;
+  }
+  .tiers-nav {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+  }
+  .tier-pill {
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+    padding: 1rem 1.25rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: #fff;
+    color: var(--color-navy);
+    box-shadow: var(--shadow-sm);
+  }
+  .tier-pill:hover {
+    text-decoration: none;
+    border-color: var(--color-accent);
+  }
+  .tier-pill strong {
+    color: var(--color-accent-dark);
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+
+  .tier-head {
+    margin-bottom: 1.5rem;
+  }
+  .tier-subtitle {
+    font-size: 1.2rem;
+    color: var(--color-navy);
+    font-weight: 600;
+    margin-bottom: 0.75rem;
+  }
+  .price-tag {
+    display: inline-block;
+    background: var(--color-accent-soft);
+    color: var(--color-accent-dark);
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+  }
+  .tier-intro {
+    max-width: 70ch;
+    font-size: 1.1rem;
+  }
+
+  .tier-lists {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin: 1.5rem 0 2rem;
+  }
+  .tier-list-block h3 {
+    border-bottom: 2px solid var(--color-accent-soft);
+    padding-bottom: 0.4rem;
+  }
+  ul.ticks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul.ticks li {
+    position: relative;
+    padding-left: 1.6rem;
+    margin-bottom: 0.5rem;
+  }
+  ul.ticks li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.7rem;
+    height: 0.4rem;
+    border-left: 2px solid var(--color-accent);
+    border-bottom: 2px solid var(--color-accent);
+    transform: rotate(-45deg);
+  }
+
+  .tier-note {
+    border-left: 4px solid var(--color-accent);
+    background: var(--color-bg-alt);
+    padding: 1rem 1.25rem;
+    border-radius: 0 var(--radius) var(--radius) 0;
+    max-width: 75ch;
+    font-style: italic;
+  }
+  .section--alt .tier-note {
+    background: #fff;
+  }
+
+  @media (max-width: 760px) {
+    .tiers-nav,
+    .tier-lists {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

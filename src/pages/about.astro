@@ -1,0 +1,120 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const values = [
+  {
+    title: 'Plain English',
+    text: 'No jargon and no buzzwords. We explain things clearly so you can make confident decisions.',
+  },
+  {
+    title: 'Honest advice',
+    text: 'We tell you what is working, what is failing and what needs to change — even when it is hard to hear.',
+  },
+  {
+    title: 'Practical action',
+    text: 'Every conversation ends with clear next steps you can actually carry out.',
+  },
+  {
+    title: 'Regional focus',
+    text: 'We understand small towns, regional industries and community organisations because that is who we work with.',
+  },
+];
+
+const sectors = [
+  'Small businesses',
+  'Regional businesses',
+  'Sporting organisations',
+  'Community groups',
+  'Practical and trade industries',
+  'Clubs and not-for-profits',
+];
+---
+
+<Layout
+  title="About"
+  description="Fieldcraft Consulting brings clear thinking, direct advice and practical action to small business, regional business, sporting organisations and community groups."
+>
+  <PageHero
+    eyebrow="About"
+    title="Practical help from people who understand real-world organisations"
+    intro="Fieldcraft Consulting works with the businesses and organisations that keep regional communities running."
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <h2>Why Fieldcraft Consulting exists</h2>
+      <p>
+        Most owners and managers do not need another report full of theory. They
+        need someone who will sit down, understand the situation, and help them
+        decide what to do next.
+      </p>
+      <p>
+        Fieldcraft Consulting was built for exactly that. We help small business,
+        regional business, sporting organisations, community groups and practical
+        industries build clear plans, stronger communication and better delivery.
+      </p>
+      <p>
+        Whether you are growing, stuck, or under serious pressure, we bring clear
+        thinking, direct advice and practical action — and we stay involved until
+        the plan is working.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">How we work</span>
+        <h2>What you can expect from us</h2>
+      </div>
+      <div class="card-grid">
+        {
+          values.map((v) => (
+            <div class="card">
+              <h3>{v.title}</h3>
+              <p>{v.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <h2>Who we work with</h2>
+      <p>
+        We work with the practical organisations that often miss out on good
+        advice because they are too busy doing the work.
+      </p>
+      <ul class="sector-list">
+        {sectors.map((s) => <li>{s}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>
+
+<style>
+  .narrow {
+    max-width: 760px;
+  }
+  .sector-list {
+    list-style: none;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 0.6rem;
+  }
+  .sector-list li {
+    background: var(--color-bg-alt);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    padding: 0.7rem 1rem;
+    font-weight: 500;
+    color: var(--color-navy);
+  }
+</style>
