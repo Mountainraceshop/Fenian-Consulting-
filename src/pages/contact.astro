@@ -224,9 +224,13 @@ import { site } from '../data/site';
 
   if (form && status) {
     form.noValidate = true;
+    let isSubmitting = false;
+    const submitButton = form.querySelector<HTMLButtonElement>('button[type="submit"]');
 
     form.addEventListener('submit', async (event) => {
       event.preventDefault();
+      if (isSubmitting) return;
+
       status.textContent = '';
       status.className = 'form-status';
 
@@ -258,6 +262,9 @@ import { site } from '../data/site';
       const data = new FormData(form);
 
       if (endpoint) {
+        isSubmitting = true;
+        if (submitButton) submitButton.disabled = true;
+
         try {
           status.textContent = 'Sending…';
           const res = await fetch(endpoint, {
@@ -273,6 +280,9 @@ import { site } from '../data/site';
           status.textContent =
             'Sorry, something went wrong sending your message. Please email us directly.';
           status.classList.add('error');
+        } finally {
+          isSubmitting = false;
+          if (submitButton) submitButton.disabled = false;
         }
       } else {
         // No endpoint configured yet — confirm on page so the form is testable.
