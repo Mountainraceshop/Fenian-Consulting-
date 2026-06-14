@@ -1,0 +1,112 @@
+---
+import { site, navItems } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div class="footer-about">
+      <span class="footer-brand">Fieldcraft Consulting</span>
+      <p class="footer-tagline">{site.tagline}</p>
+      <p class="footer-blurb">
+        Practical strategy, clear communication and real-world delivery for
+        small business, regional business, sporting organisations and community
+        groups.
+      </p>
+    </div>
+
+    <div class="footer-links">
+      <h4>Pages</h4>
+      <ul>
+        {navItems.map((item) => (
+          <li><a href={item.href}>{item.label}</a></li>
+        ))}
+      </ul>
+    </div>
+
+    <div class="footer-contact">
+      <h4>Get in touch</h4>
+      <ul>
+        <li><a href={`mailto:${site.email}`}>{site.email}</a></li>
+        <li><a href={`tel:${site.phone.replace(/\s+/g, '')}`}>{site.phone}</a></li>
+        <li>{site.location}</li>
+      </ul>
+      <a class="btn btn--primary" href="/contact/">Book a Consultation</a>
+    </div>
+  </div>
+
+  <div class="footer-bottom">
+    <div class="container">
+      <p>&copy; {year} Fieldcraft Consulting. All rights reserved.</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    background: var(--color-navy);
+    color: #d7dde6;
+    margin-top: 0;
+  }
+  .footer-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 2.5rem;
+    padding-top: 3.5rem;
+    padding-bottom: 2.5rem;
+  }
+  .footer-brand {
+    display: block;
+    color: #fff;
+    font-weight: 700;
+    font-size: 1.25rem;
+    margin-bottom: 0.4rem;
+  }
+  .footer-tagline {
+    color: var(--color-accent);
+    font-weight: 600;
+    margin-bottom: 0.8rem;
+  }
+  .footer-blurb {
+    color: #b9c2cf;
+    font-size: 0.95rem;
+    max-width: 38ch;
+  }
+  .site-footer h4 {
+    color: #fff;
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 1rem;
+  }
+  .site-footer ul {
+    list-style: none;
+    margin: 0 0 1.25rem;
+    padding: 0;
+  }
+  .site-footer li {
+    margin-bottom: 0.55rem;
+  }
+  .site-footer a {
+    color: #d7dde6;
+  }
+  .site-footer a:hover {
+    color: #fff;
+  }
+  .footer-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+    padding: 1.1rem 0;
+  }
+  .footer-bottom p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: #9aa6b5;
+  }
+
+  @media (max-width: 800px) {
+    .footer-grid {
+      grid-template-columns: 1fr;
+      gap: 2rem;
+    }
+  }
+</style>
