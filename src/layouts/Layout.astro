@@ -14,11 +14,10 @@ interface Props {
 const {
   title,
   description = site.description,
-  socialTitle,
+  socialTitle = site.socialTitle,
   socialDescription = site.socialDescription,
 } = Astro.props;
 const pageTitle = title ? `${site.name} | ${title}` : site.defaultTitle;
-const shareTitle = socialTitle ?? (title ? pageTitle : site.socialTitle);
 const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
 ---
 
@@ -41,12 +40,12 @@ const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
     <!-- Open Graph / social sharing -->
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={site.name} />
-    <meta property="og:title" content={shareTitle} />
+    <meta property="og:title" content={socialTitle} />
     <meta property="og:description" content={socialDescription} />
     <meta property="og:url" content={canonical} />
     <meta property="og:locale" content="en_AU" />
     <meta name="twitter:card" content="summary_large_image" />
-    <meta name="twitter:title" content={shareTitle} />
+    <meta name="twitter:title" content={socialTitle} />
     <meta name="twitter:description" content={socialDescription} />
 
     <!-- Local business structured data for SEO -->
