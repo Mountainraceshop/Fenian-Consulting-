@@ -101,13 +101,13 @@ export const whatWeDo: Service[] = [
     title: 'Training & Practical Documentation',
     summary:
       'Simple, usable procedures, training documents and systems your team will actually follow.',
-    href: '/services/',
+    href: '/contact/',
   },
   {
     title: 'AI & Small Business Systems',
     summary:
       'Sensible, low-cost tools and systems that save time and take pressure off busy owners.',
-    href: '/services/',
+    href: '/contact/',
   },
 ];
 
@@ -117,6 +117,7 @@ export type CoachingTier = {
   title: string;
   subtitle: string;
   blurb: string;
+  href?: string;
 };
 
 // Short version of the three support levels, reused on the homepage.
@@ -136,6 +137,7 @@ export const supportLevels: CoachingTier[] = [
     subtitle: 'A complete business review and action plan',
     blurb:
       'A deeper review of the business with SWOT analysis, action plans and practical recommendations across operations, marketing, pricing, systems, staff, customer flow and financial pressure points.',
+    href: '/business-audit/',
   },
   {
     id: 'turnaround',

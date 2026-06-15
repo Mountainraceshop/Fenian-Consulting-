@@ -79,7 +79,7 @@ import { whatWeDo, supportLevels } from '../data/site';
       <div class="card-grid levels">
         {
           supportLevels.map((tier) => (
-            <a class="card level-card" href={`/business-coaching/#${tier.id}`}>
+            <a class="card level-card" href={tier.href ?? `/business-coaching/#${tier.id}`}>
               <span class="level-num">{tier.level}</span>
               <h3>{tier.title}</h3>
               <p>{tier.blurb}</p>
