@@ -1,0 +1,76 @@
+---
+import '../styles/global.css';
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  socialTitle?: string;
+  socialDescription?: string;
+}
+
+const {
+  title,
+  description = site.description,
+  socialTitle,
+  socialDescription = site.socialDescription,
+} = Astro.props;
+const pageTitle = title ? `${site.name} | ${title}` : site.defaultTitle;
+const shareTitle = socialTitle ?? (title ? pageTitle : site.socialTitle);
+const canonical = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
+---
+
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <meta
+      name="keywords"
+      content="business coaching NSW, small business mentor NSW, business turnaround consultant, regional business consulting, small business audit, marketing consultant NSW, tender writing support, grant writing support, business recovery support, event marketing consultant"
+    />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <meta name="theme-color" content="#15263b" />
+
+    <!-- Open Graph / social sharing -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={site.name} />
+    <meta property="og:title" content={shareTitle} />
+    <meta property="og:description" content={socialDescription} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:locale" content="en_AU" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={shareTitle} />
+    <meta name="twitter:description" content={socialDescription} />
+
+    <!-- Local business structured data for SEO -->
+    <script
+      type="application/ld+json"
+      set:html={JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'ProfessionalService',
+        name: site.name,
+        description: site.description,
+        slogan: site.tagline,
+        email: site.email,
+        telephone: site.phone === 'To be confirmed' ? undefined : site.phone,
+        areaServed: 'AU',
+        url: `https://${site.domain}`,
+      })}
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <Header />
+    <main id="main">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://fenian-consulting.com.au/sitemap-index.xml

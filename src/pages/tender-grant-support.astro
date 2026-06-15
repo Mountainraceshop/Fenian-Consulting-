@@ -1,0 +1,131 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const helps = [
+  {
+    title: 'Tender responses',
+    text: 'Clear, compliant submissions for council, government and vendor-panel work that answer every question and meet the criteria.',
+  },
+  {
+    title: 'Grant applications',
+    text: 'Well-structured grant applications that show why your project matters and how the funding will be used.',
+  },
+  {
+    title: 'Capability statements',
+    text: 'A sharp, professional summary of who you are and what you do, ready to send to buyers and panels.',
+  },
+  {
+    title: 'Compliance & checking',
+    text: 'A careful read-through against the requirements so nothing is missed before you submit.',
+  },
+];
+
+const process = [
+  'Read the requirements and pick the right opportunities to chase',
+  'Map your strengths to the selection criteria',
+  'Write clear, evidence-based responses in plain English',
+  'Check formatting, attachments and compliance before submission',
+];
+---
+
+<Layout
+  title="Tender & Grant Support"
+  description="Well-written tender writing support and grant writing support for councils, vendor panels and funders. Fenian Consulting helps small and regional businesses present their work clearly."
+>
+  <PageHero
+    eyebrow="Tender & Grant Support"
+    title="Present your business at its best — and win more work"
+    intro="Tenders and grants are often won or lost on how clearly you answer the questions. We help you put your best case forward."
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <h2>Stop missing out on work you could win</h2>
+      <p>
+        Many good businesses miss out on tenders and grants — not because they
+        cannot do the work, but because the paperwork is rushed, confusing or
+        incomplete. Buyers and funders can only score what is in front of them.
+      </p>
+      <p>
+        Fenian Consulting helps small and regional businesses, clubs and
+        community organisations write clear, compliant submissions that show
+        exactly why they are the right choice.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">How we help</span>
+        <h2>From confusing documents to confident submissions</h2>
+      </div>
+      <div class="card-grid">
+        {
+          helps.map((h) => (
+            <div class="card">
+              <h3>{h.title}</h3>
+              <p>{h.text}</p>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container narrow">
+      <h2>Our approach</h2>
+      <ul class="ticks">
+        {process.map((p) => <li>{p}</li>)}
+      </ul>
+      <span class="price-tag">Price on application</span>
+      <div class="mt-2">
+        <a class="btn btn--primary" href="/contact/">Get Tender & Grant Help</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Have a tender or grant deadline coming up?"
+    text="Send us the details and we will help you put together a clear, compliant submission in time."
+  />
+</Layout>
+
+<style>
+  .narrow {
+    max-width: 760px;
+  }
+  .price-tag {
+    display: inline-block;
+    background: var(--color-accent-soft);
+    color: var(--color-accent-dark);
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+  }
+  ul.ticks {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1.5rem;
+  }
+  ul.ticks li {
+    position: relative;
+    padding-left: 1.6rem;
+    margin-bottom: 0.6rem;
+  }
+  ul.ticks li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.7rem;
+    height: 0.4rem;
+    border-left: 2px solid var(--color-accent);
+    border-bottom: 2px solid var(--color-accent);
+    transform: rotate(-45deg);
+  }
+</style>

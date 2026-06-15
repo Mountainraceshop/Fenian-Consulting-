@@ -1,0 +1,101 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const services = [
+  {
+    title: 'Marketing campaigns',
+    text: 'Simple, well-planned campaigns that bring in enquiries — including Facebook and local advertising that actually reaches your customers.',
+  },
+  {
+    title: 'Messaging & brand voice',
+    text: 'Clear messaging that explains what you do and why people should choose you, in plain English.',
+  },
+  {
+    title: 'Social media & content',
+    text: 'A practical plan and ready-to-use content so your social media stays active without taking over your week.',
+  },
+  {
+    title: 'Website & customer messages',
+    text: 'A review of your website and customer-facing messages so they are clear, current and easy to act on.',
+  },
+  {
+    title: 'Print & local promotion',
+    text: 'Flyers, signage and local promotion that match the rest of your marketing and look professional.',
+  },
+  {
+    title: 'Customer flow review',
+    text: 'We map how customers find you, contact you and buy from you — and fix the points where you lose them.',
+  },
+];
+---
+
+<Layout
+  title="Marketing & Communications"
+  description="Fenian Consulting provides marketing consultant NSW support with clear campaigns, messaging, social media and content for small and regional businesses."
+>
+  <PageHero
+    eyebrow="Marketing & Communications"
+    title="Marketing that brings in enquiries and tells your story clearly"
+    intro="Good marketing does not have to be loud or expensive. It has to be clear, consistent and aimed at the right people."
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <h2>Marketing that makes sense for your business</h2>
+      <p>
+        Many small businesses waste money on marketing that looks busy but
+        brings in nothing. We focus on what actually works for regional and
+        practical businesses: clear messages, the right channels and a steady,
+        manageable plan.
+      </p>
+      <p>
+        Whether you need a one-off campaign, help with Facebook, or an ongoing
+        plan, we keep it practical and easy to run.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">What we offer</span>
+        <h2>Practical marketing and communications support</h2>
+      </div>
+      <div class="card-grid">
+        {
+          services.map((s) => (
+            <div class="card">
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div class="text-center mt-2">
+        <span class="price-tag">Price on application</span>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Ready to get more enquiries?"
+    text="Let's build a clear, manageable marketing plan that suits your business and your budget."
+  />
+</Layout>
+
+<style>
+  .narrow {
+    max-width: 760px;
+  }
+  .price-tag {
+    display: inline-block;
+    background: var(--color-accent-soft);
+    color: var(--color-accent-dark);
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+  }
+</style>

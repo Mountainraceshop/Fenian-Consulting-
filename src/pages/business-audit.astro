@@ -1,0 +1,128 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const includes = [
+  'business discovery session',
+  'review of current products and services',
+  'SWOT analysis',
+  'marketing and customer-flow review',
+  'pricing and offer review',
+  'operations and workflow review',
+  'staff, process and admin review where relevant',
+  'website, social media and customer message review',
+  'practical action plan',
+  'priority list: urgent, important, later',
+  '30/60/90 day improvement roadmap',
+];
+
+const bestFor = [
+  'businesses with falling enquiries',
+  'owners who feel overwhelmed',
+  'businesses preparing for growth',
+  'businesses preparing for sale',
+  'businesses that have lost direction',
+  'clubs or organisations with declining attendance',
+];
+---
+
+<Layout
+  title="Business Audit"
+  description="Fenian Consulting provides small business audits, SWOT analysis, marketing reviews and 30/60/90 day action plans for owners who need clear priorities."
+>
+  <PageHero
+    eyebrow="Business Audit"
+    title="A complete business review and action plan"
+    intro="This is for businesses that need a proper review, not just a quick chat."
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <p class="lead">
+        Fenian Consulting reviews the business from the outside in and the inside
+        out. We look at how the business presents, how it sells, how it operates,
+        where money is leaking, where customers are being lost and what needs to
+        change first.
+      </p>
+      <span class="price-tag">Price on application</span>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">What's included</span>
+        <h2>Practical review, clear priorities and usable next steps</h2>
+      </div>
+      <div class="two-col">
+        <div>
+          <h3>Includes</h3>
+          <ul class="ticks">
+            {includes.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+        <div>
+          <h3>Best for</h3>
+          <ul class="ticks">
+            {bestFor.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      </div>
+      <div class="text-center mt-2">
+        <a class="btn btn--primary" href="/contact/">Book a Business Audit</a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Need to know what to fix first?"
+    text="Book a Business Audit and get a clear priority list, action plan and 30/60/90 day roadmap."
+  />
+</Layout>
+
+<style>
+  .narrow {
+    max-width: 760px;
+  }
+  .price-tag {
+    display: inline-block;
+    background: var(--color-accent-soft);
+    color: var(--color-accent-dark);
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+  }
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+  }
+  ul.ticks {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  ul.ticks li {
+    position: relative;
+    padding-left: 1.6rem;
+    margin-bottom: 0.6rem;
+  }
+  ul.ticks li::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 0.55em;
+    width: 0.7rem;
+    height: 0.4rem;
+    border-left: 2px solid var(--color-accent);
+    border-bottom: 2px solid var(--color-accent);
+    transform: rotate(-45deg);
+  }
+  @media (max-width: 760px) {
+    .two-col {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>

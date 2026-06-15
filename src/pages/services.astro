@@ -1,0 +1,136 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const services = [
+  {
+    title: 'Business Coaching',
+    href: '/business-coaching/',
+    text: 'Practical coaching across three levels — Mentor, Business Audit and Turnaround — for owners who need clear advice and a usable plan.',
+  },
+  {
+    title: 'Business Audits & Action Plans',
+    href: '/business-audit/',
+    text: 'A complete review of the business with a SWOT analysis, priority list and a 30/60/90 day improvement roadmap.',
+  },
+  {
+    title: 'Business Turnaround',
+    href: '/business-turnaround/',
+    text: 'Hands-on intervention for businesses under serious pressure. We step in, stabilise operations and drive the recovery plan.',
+  },
+  {
+    title: 'Marketing & Communications',
+    href: '/marketing-communications/',
+    text: 'Clear campaigns, messaging, social media and content that bring in enquiries and tell your story in plain English.',
+  },
+  {
+    title: 'Tender & Grant Support',
+    href: '/tender-grant-support/',
+    text: 'Well-written, compliant tender and grant responses that present your business at its best to councils, panels and funders.',
+  },
+  {
+    title: 'Event & Community Growth',
+    href: '/event-community-growth/',
+    text: 'Practical planning to grow attendance, membership, sponsorship and community support for clubs and events.',
+  },
+  {
+    title: 'Training & Practical Documentation',
+    href: '/contact/',
+    text: 'Simple procedures, induction packs, checklists and training documents your team will actually use.',
+  },
+  {
+    title: 'AI & Small Business Systems',
+    href: '/contact/',
+    text: 'Sensible, low-cost tools and systems that save time, reduce admin and take pressure off busy owners.',
+  },
+];
+---
+
+<Layout
+  title="Services"
+  description="Fenian Consulting provides business coaching, audits, turnaround, marketing and communications, tender and grant support, event growth, training and small business systems."
+>
+  <PageHero
+    eyebrow="Services"
+    title="One practical partner across the things your organisation needs"
+    intro="From day-to-day marketing to full business turnaround, Fenian Consulting helps you build clear plans, stronger communication and better delivery."
+  />
+
+  <section class="section">
+    <div class="container">
+      <div class="card-grid">
+        {
+          services.map((s) => (
+            <a class="card" href={s.href}>
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+              <span class="card__more">Learn more &rarr;</span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container narrow">
+      <span class="eyebrow">How we start</span>
+      <h2>A simple, practical process</h2>
+      <ol class="steps">
+        <li>
+          <strong>Talk it through.</strong> We start with a conversation about where
+          your business or organisation is now and what is getting in the way.
+        </li>
+        <li>
+          <strong>Find the priorities.</strong> We identify what is working, what is
+          failing and what needs to change first.
+        </li>
+        <li>
+          <strong>Build the plan.</strong> You get a clear, practical action plan — not
+          a report that sits in a drawer.
+        </li>
+        <li>
+          <strong>Deliver and follow up.</strong> We stay involved to help you put the
+          plan into action and keep it on track.
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>
+
+<style>
+  .narrow {
+    max-width: 760px;
+  }
+  .steps {
+    counter-reset: step;
+    list-style: none;
+    padding: 0;
+    margin: 1.5rem 0 0;
+  }
+  .steps li {
+    position: relative;
+    padding-left: 3.25rem;
+    margin-bottom: 1.25rem;
+    min-height: 2.2rem;
+  }
+  .steps li::before {
+    counter-increment: step;
+    content: counter(step);
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2.2rem;
+    height: 2.2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--color-accent);
+    color: #fff;
+    font-weight: 700;
+  }
+</style>
