@@ -1,0 +1,160 @@
+---
+import Layout from '../layouts/Layout.astro';
+import ServiceCard from '../components/ServiceCard.astro';
+import CtaBand from '../components/CtaBand.astro';
+import { whatWeDo, supportLevels } from '../data/site';
+---
+
+<Layout
+  title="Business Coaching, Marketing & Turnaround Support"
+  description="Fenian Consulting provides practical business coaching, marketing, tender support, business audits and turnaround support for small businesses, regional organisations and practical industries."
+>
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container hero-inner">
+      <span class="eyebrow">Practical strategy. Clear communication. Real-world recovery.</span>
+      <h1>Practical strategy for real-world businesses.</h1>
+      <p class="hero-lead">
+        Fenian Consulting helps small businesses, regional organisations,
+        sporting bodies and practical industries build clearer plans, stronger
+        communication and better delivery.
+      </p>
+      <p>
+        From business mentoring and marketing campaigns to tender responses,
+        event growth and serious business turnaround, we turn scattered
+        problems into structured action.
+      </p>
+      <div class="btn-row">
+        <a class="btn btn--primary" href="/contact/">Book a Consultation</a>
+        <a class="btn btn--secondary" href="/services/">View Services</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- What We Do -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">What We Do</span>
+        <h2>Practical support across the things that matter most</h2>
+        <p class="lead">
+          Hands-on help for owners and organisations that need clear thinking
+          and a plan they can act on.
+        </p>
+      </div>
+      <div class="card-grid">
+        {whatWeDo.map((service) => <ServiceCard {...service} />)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Built for practical businesses -->
+  <section class="section section--alt">
+    <div class="container two-col">
+      <div>
+        <span class="eyebrow">Built for practical businesses</span>
+        <h2>Clear thinking, direct advice, practical action</h2>
+      </div>
+      <div>
+        <p>
+          Fenian Consulting is not built around theory for theory&rsquo;s
+          sake. We work with businesses and organisations that need clear
+          thinking, direct advice and practical action.
+        </p>
+        <p>
+          We help owners understand what is working, what is failing, what needs
+          to change and what should happen next.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Three levels of business support -->
+  <section class="section">
+    <div class="container">
+      <div class="section-head center">
+        <span class="eyebrow">Three levels of business support</span>
+        <h2>Choose the level of help your business needs</h2>
+      </div>
+      <div class="card-grid levels">
+        {
+          supportLevels.map((tier) => (
+            <a class="card level-card" href={tier.href ?? `/business-coaching/#${tier.id}`}>
+              <span class="level-num">{tier.level}</span>
+              <h3>{tier.title}</h3>
+              <p>{tier.blurb}</p>
+              <span class="card__more">See details &rarr;</span>
+            </a>
+          ))
+        }
+      </div>
+      <div class="text-center mt-2">
+        <a class="btn btn--secondary" href="/business-coaching/">
+          Compare Coaching Levels
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>
+
+<style>
+  .hero {
+    background:
+      radial-gradient(
+        1200px 400px at 80% -10%,
+        rgba(191, 98, 48, 0.08),
+        transparent
+      ),
+      var(--color-bg);
+    padding: clamp(3rem, 8vw, 6rem) 0 clamp(2.5rem, 5vw, 4rem);
+  }
+  .hero-inner {
+    max-width: 780px;
+  }
+  .hero-lead {
+    font-size: 1.3rem;
+    color: var(--color-navy);
+    font-weight: 500;
+  }
+  .hero .btn-row {
+    margin-top: 1.75rem;
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 2.5rem;
+    align-items: start;
+  }
+  .two-col h2 {
+    margin-bottom: 0;
+  }
+
+  .level-card {
+    position: relative;
+    padding-top: 2.6rem;
+  }
+  .level-num {
+    position: absolute;
+    top: 1.2rem;
+    right: 1.4rem;
+    width: 38px;
+    height: 38px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    background: var(--color-accent-soft);
+    color: var(--color-accent-dark);
+    font-weight: 700;
+  }
+
+  @media (max-width: 800px) {
+    .two-col {
+      grid-template-columns: 1fr;
+      gap: 1rem;
+    }
+  }
+</style>

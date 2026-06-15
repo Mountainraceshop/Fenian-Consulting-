@@ -1,0 +1,102 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+
+const services = [
+  {
+    title: 'Event planning',
+    text: 'Practical planning for events, fixtures, fundraisers and open days — from the first idea through to the day itself.',
+  },
+  {
+    title: 'Growing attendance',
+    text: 'Clear promotion and communication that gets more people through the gate and keeps them coming back.',
+  },
+  {
+    title: 'Membership growth',
+    text: 'Simple ways to attract new members and volunteers, and keep the ones you have engaged.',
+  },
+  {
+    title: 'Sponsorship & support',
+    text: 'Help approaching local businesses and sponsors with an offer that is clear and worth saying yes to.',
+  },
+  {
+    title: 'Community communication',
+    text: 'Newsletters, social media and announcements that keep your community informed and involved.',
+  },
+  {
+    title: 'Volunteer & committee support',
+    text: 'Practical systems and documents that make it easier to run the club or group without burning out volunteers.',
+  },
+];
+---
+
+<Layout
+  title="Event & Community Growth"
+  description="Event marketing consultant support for sporting clubs, community groups and local events that need practical planning to grow attendance, membership and support."
+>
+  <PageHero
+    eyebrow="Event & Community Growth"
+    title="Help your club, group or event grow and stay strong"
+    intro="Sporting clubs, community groups and local events are the heart of regional towns. We help them attract people, support and momentum."
+  />
+
+  <section class="section">
+    <div class="container narrow">
+      <h2>Stronger clubs, bigger events, more support</h2>
+      <p>
+        Running a club, group or event is hard work, and it usually falls on a
+        handful of busy volunteers. When attendance drops, sponsors drift away or
+        the committee runs out of energy, it can feel like everything is going
+        backwards.
+      </p>
+      <p>
+        Fenian Consulting brings practical planning and clear communication to
+        help your organisation grow attendance, membership and community support —
+        without making more work for your volunteers.
+      </p>
+    </div>
+  </section>
+
+  <section class="section section--alt">
+    <div class="container">
+      <div class="section-head">
+        <span class="eyebrow">How we help</span>
+        <h2>Practical support for clubs, groups and events</h2>
+      </div>
+      <div class="card-grid">
+        {
+          services.map((s) => (
+            <div class="card">
+              <h3>{s.title}</h3>
+              <p>{s.text}</p>
+            </div>
+          ))
+        }
+      </div>
+      <div class="text-center mt-2">
+        <span class="price-tag">Price on application</span>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand
+    heading="Want to grow your club, group or event?"
+    text="Tell us what you are working towards and we will help you build a clear, practical plan to get there."
+  />
+</Layout>
+
+<style>
+  .narrow {
+    max-width: 760px;
+  }
+  .price-tag {
+    display: inline-block;
+    background: var(--color-accent-soft);
+    color: var(--color-accent-dark);
+    font-weight: 600;
+    padding: 0.35rem 0.85rem;
+    border-radius: 999px;
+    font-size: 0.9rem;
+  }
+</style>

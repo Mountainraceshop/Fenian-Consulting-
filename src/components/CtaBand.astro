@@ -1,0 +1,29 @@
+---
+interface Props {
+  heading?: string;
+  text?: string;
+}
+const {
+  heading = 'Ready to turn scattered problems into structured action?',
+  text = 'Book a consultation and we will talk through where your business or organisation is now, and the practical next steps to move forward.',
+} = Astro.props;
+---
+
+<section class="section section--navy cta-band">
+  <div class="container text-center">
+    <h2>{heading}</h2>
+    <p class="cta-text">{text}</p>
+    <div class="btn-row" style="justify-content:center">
+      <a class="btn btn--primary" href="/contact/">Book a Consultation</a>
+      <a class="btn btn--on-navy" href="/services/">View Services</a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .cta-text {
+    max-width: 620px;
+    margin: 0 auto 1.75rem;
+    font-size: 1.1rem;
+  }
+</style>
