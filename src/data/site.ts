@@ -38,6 +38,7 @@ export const navItems: NavItem[] = [
   { label: 'Business Turnaround', href: '/business-turnaround/' },
   { label: 'Tender & Grant Support', href: '/tender-grant-support/' },
   { label: 'Marketing & Communications', href: '/marketing-communications/' },
+  { label: 'AI Search Check', href: '/ai-search-check/' },
   { label: 'Event & Community Growth', href: '/event-community-growth/' },
   { label: 'Contact', href: '/contact/' },
 ];
@@ -50,6 +51,7 @@ export const footerItems: NavItem[] = [
   { label: 'Business Turnaround', href: '/business-turnaround/' },
   { label: 'Tender & Grant Support', href: '/tender-grant-support/' },
   { label: 'Marketing & Communications', href: '/marketing-communications/' },
+  { label: 'AI Search Check', href: '/ai-search-check/' },
   { label: 'Contact', href: '/contact/' },
 ];
 
@@ -59,8 +61,15 @@ export type Service = {
   href?: string;
 };
 
+export const aiSearchService = {
+  title: 'AI Search Check',
+  summary: 'See how AI search describes your business and get practical fixes for your website and local listings.',
+  href: '/ai-search-check/',
+};
+
 // Cards shown in the homepage "What We Do" section.
 export const whatWeDo: Service[] = [
+  aiSearchService,
   {
     title: 'Business Coaching',
     summary:

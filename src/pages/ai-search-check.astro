@@ -1,0 +1,139 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import { aiSearchService, site } from '../data/site';
+
+const packages = [
+  {
+    name: 'AI Search Check',
+    price: 'A$495 once',
+    details: 'We test 12 customer questions across ChatGPT Search, Google AI Mode and Perplexity. You get the answers, cited sources, competitors mentioned and the gaps worth fixing.',
+    extra: 'Includes one agreed website or listing correction where we have access.',
+  },
+  {
+    name: 'Visibility Fix Pack',
+    price: 'A$1,250 once',
+    details: 'We update up to two existing service pages, correct business details on agreed listings and address basic indexing issues within scope.',
+    extra: 'Includes a repeat of the original questions after 30 days.',
+  },
+  {
+    name: 'Ongoing Checks',
+    price: 'A$295 per month',
+    details: 'We repeat the same tests, flag changes and factual errors, and report AI referral visits and enquiries where they can be identified.',
+    extra: 'Available after your initial check.',
+  },
+];
+
+const emailLink = `mailto:${site.email}?subject=AI%20Search%20Check%20enquiry`;
+---
+
+<Layout title={aiSearchService.title} description={aiSearchService.summary}>
+  <PageHero
+    eyebrow="AI Search Check"
+    title="Does AI recommend your business?"
+    intro="See what customers find when they ask AI who to call. Get a clear list of what to fix on your website and business listings, with fixed prices for Canberra and regional NSW businesses."
+  >
+    <a class="btn btn--primary" href="#request">Request an AI Search Check</a>
+  </PageHero>
+
+  <section class="section" aria-labelledby="packages-heading">
+    <div class="container">
+      <h2 id="packages-heading">Choose your package</h2>
+      <div class="card-grid packages">
+        {packages.map((offer) => (
+          <article class="card">
+            <h3>{offer.name}</h3>
+            <p class="price">{offer.price}</p>
+            <p>{offer.details}</p>
+            <p>{offer.extra}</p>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <section class="section section--alt" aria-labelledby="findings-heading">
+    <div class="container narrow">
+      <h2 id="findings-heading">What the check can uncover</h2>
+      <p>
+        A rider might ask, “Who services motocross suspension near Canberra?”
+        We look at which workshops come up, where the answer gets its information
+        and whether it describes your services and pickup area accurately.
+        We tailor the questions to your business and the areas you want to serve.
+      </p>
+      <p>
+        AI answers can vary by search, location and date. Your report shows the
+        answers we observed and the changes you can make.
+      </p>
+    </div>
+  </section>
+
+  <section class="section" id="request" aria-labelledby="request-heading">
+    <div class="container narrow">
+      <h2 id="request-heading">Request a package by email</h2>
+      <p>Fill in your details to open a prepared email in your mail app. Send it and we’ll confirm the scope and payment details by email.</p>
+      <form class="card intake" id="ai-search-intake" data-email={site.email} hidden>
+        <label>Package
+          <select name="package" required>
+            {packages.map((offer) => <option value={offer.name}>{offer.name} ({offer.price})</option>)}
+          </select>
+        </label>
+        <label>Your name
+          <input name="name" autocomplete="name" maxlength="100" required />
+        </label>
+        <label>Business name
+          <input name="business" autocomplete="organization" maxlength="120" required />
+        </label>
+        <label>Website address
+          <input name="website" inputmode="url" autocomplete="url" maxlength="250" required />
+        </label>
+        <label>Services and towns you want to be found for
+          <textarea name="targets" rows="3" maxlength="500" required></textarea>
+        </label>
+        <button class="btn btn--primary" type="submit">Open email draft</button>
+      </form>
+      <p class="email-fallback">You can also email <a href={emailLink}>{site.email}</a>.</p>
+    </div>
+  </section>
+</Layout>
+
+<style>
+  .packages { margin-top: 1.5rem; }
+  .price { color: var(--color-accent-dark); font-weight: 700; font-size: 1.25rem; }
+  .narrow { max-width: 760px; }
+  .intake:not([hidden]) { display: grid; gap: 1rem; }
+  label { display: grid; gap: 0.35rem; font-weight: 600; color: var(--color-navy); }
+  input, select, textarea {
+    width: 100%;
+    padding: 0.7rem 0.85rem;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius);
+    background: #fff;
+    font: inherit;
+    color: var(--color-text);
+  }
+  .intake .btn { justify-self: start; }
+  .email-fallback { margin-top: 1rem; overflow-wrap: anywhere; }
+</style>
+
+<script>
+  const form = document.querySelector<HTMLFormElement>('#ai-search-intake');
+  if (form) {
+    form.addEventListener('submit', (event) => {
+      event.preventDefault();
+      const fields = new FormData(form);
+      const subject = `Fenian Consulting enquiry – ${fields.get('package')}`;
+      const body = [
+        `Package: ${fields.get('package')}`,
+        `Name: ${fields.get('name')}`,
+        `Business: ${fields.get('business')}`,
+        `Website: ${fields.get('website')}`,
+        '',
+        'Services and towns:',
+        String(fields.get('targets')),
+      ].join('\r\n');
+      window.location.href = `mailto:${form.dataset.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    });
+    form.hidden = false;
+  }
+</script>

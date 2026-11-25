@@ -60,3 +60,56 @@ public/         # favicon, robots.txt and other static assets
 ## Deployment
 
 `npm run build` outputs a fully static site to `dist/`, which can be hosted on any static host (Netlify, Vercel, Cloudflare Pages, GitHub Pages, S3, etc.).
+
+## AI Search Monitor
+
+The GitHub Actions workflow runs a fixed set of buyer questions for each client,
+records answers and citations, and produces one internal Markdown report per
+client plus a JSON snapshot. It flags changes in brand mentions, site citations,
+competitor mentions and cited domains compared with the previous comparable run.
+Changing the model, location, tracking profile or question starts a new baseline
+for that sample. Review the answers for factual errors before sharing a report.
+
+In GitHub **Settings → Secrets and variables → Actions**, add
+`AI_SEARCH_REPORT_PASSWORD` (a random password of at least 24 characters),
+`AI_SEARCH_CLIENTS_JSON`, and an API key for each provider you want to use:
+`OPENAI_API_KEY` and/or `PERPLEXITY_API_KEY`. API requests incur provider fees.
+Example client configuration (add up to 12 distinct questions per client):
+
+```json
+[
+  {
+    "id": "mountain-race-shop",
+    "name": "Mountain Race Shop",
+    "domain": "mountainraceshop.com.au",
+    "city": "Cooma",
+    "region": "New South Wales",
+    "aliases": [],
+    "competitors": [],
+    "prompts": [
+      "Who services motocross suspension near Canberra?",
+      "Where can I get an enduro suspension revalve in the Snowy Mountains?"
+    ]
+  }
+]
+```
+
+Run **AI Search Monitor** manually from the Actions tab on `main` after
+configuring the secrets. Enable the monthly run by setting the repository
+variable `AI_SEARCH_MONITOR_ENABLED` to `true`. The workflow uses the most
+recent unexpired archive from `main` for comparisons. Keep the password stable
+for the comparison window. If you must rotate it, remove the old archive after
+backing up any reports you need so the next run starts a fresh baseline.
+
+Download and unzip the `ai-search-monitor` run artifact, then decrypt and extract it
+in a private directory. OpenSSL prompts for the report password.
+
+```sh
+openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 -in ai-search-reports.tar.gz.enc -out ai-search-reports.tar.gz
+tar -xzf ai-search-reports.tar.gz
+```
+
+OpenAI web search and Perplexity Sonar are API samples. Check the consumer
+interfaces manually when delivering a customer audit, including Google AI Mode.
+Website and listing changes, factual verification and referral/enquiry analysis
+remain part of the human service. The workflow does not send reports to customers.

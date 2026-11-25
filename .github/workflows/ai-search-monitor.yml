@@ -1,0 +1,63 @@
+name: AI Search Monitor
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 22 1 * *'
+
+permissions:
+  actions: read
+  contents: read
+
+concurrency:
+  group: ai-search-monitor
+  cancel-in-progress: false
+
+jobs:
+  monitor:
+    if: github.event_name == 'workflow_dispatch' || vars.AI_SEARCH_MONITOR_ENABLED == 'true'
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Run checks and encrypt reports
+        env:
+          GH_TOKEN: ${{ github.token }}
+          AI_SEARCH_CLIENTS_JSON: ${{ secrets.AI_SEARCH_CLIENTS_JSON }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          PERPLEXITY_API_KEY: ${{ secrets.PERPLEXITY_API_KEY }}
+          AI_SEARCH_REPORT_PASSWORD: ${{ secrets.AI_SEARCH_REPORT_PASSWORD }}
+        run: |
+          set -euo pipefail
+          umask 077
+          if [[ ${#AI_SEARCH_REPORT_PASSWORD} -lt 24 ]]; then
+            echo 'Set AI_SEARCH_REPORT_PASSWORD to a randomly generated password of at least 24 characters.'
+            exit 1
+          fi
+
+          work="$(mktemp -d)"
+          trap 'rm -rf "$work"' EXIT
+          artifact="$(gh api "repos/$GITHUB_REPOSITORY/actions/artifacts?name=ai-search-monitor&per_page=100" \
+            --jq '[.artifacts[] | select(.expired == false and .workflow_run.head_branch == "main")] | max_by(.created_at) | .id // empty')"
+          previous=()
+          if [[ -n "$artifact" ]]; then
+            gh api "repos/$GITHUB_REPOSITORY/actions/artifacts/$artifact/zip" > "$work/artifact.zip"
+            unzip -p "$work/artifact.zip" ai-search-reports.tar.gz.enc > "$work/previous.enc"
+            openssl enc -d -aes-256-cbc -pbkdf2 -iter 200000 \
+              -pass env:AI_SEARCH_REPORT_PASSWORD -in "$work/previous.enc" \
+              | tar -xzO ./snapshot.json > "$work/previous.json"
+            previous=("$work/previous.json")
+          fi
+
+          node scripts/ai-search-monitor.mjs "$work/reports" "${previous[@]}"
+          tar -C "$work/reports" -cz . | openssl enc -aes-256-cbc -salt -pbkdf2 -iter 200000 \
+            -pass env:AI_SEARCH_REPORT_PASSWORD -out "$RUNNER_TEMP/ai-search-reports.tar.gz.enc"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ai-search-monitor
+          path: ${{ runner.temp }}/ai-search-reports.tar.gz.enc
+          retention-days: 90
+          if-no-files-found: error
