@@ -61,16 +61,29 @@ async function searchOpenAI(client, prompt) {
 }
 
 async function searchPerplexity(client, prompt) {
-  const result = await post('https://api.perplexity.ai/chat/completions', process.env.PERPLEXITY_API_KEY, {
-    model: 'sonar',
-    messages: [{ role: 'system', content: `The searcher is in ${client.city}, ${client.region}, Australia.` },
-      { role: 'user', content: prompt }],
-    max_tokens: 1800,
+  const model = 'perplexity/sonar';
+  const result = await post('https://api.perplexity.ai/v1/agent', process.env.PERPLEXITY_API_KEY, {
+    model,
+    input: [
+      { type: 'message', role: 'system', content: `The searcher is in ${client.city}, ${client.region}, Australia.` },
+      { type: 'message', role: 'user', content: prompt },
+    ],
+    tools: [{
+      type: 'web_search',
+      user_location: { country: 'AU', city: client.city, region: client.region },
+    }],
+    tool_choice: { type: 'web_search' },
+    max_output_tokens: 1800,
   });
+  const output = result.output ?? [];
+  const blocks = output.filter(item => item.type === 'message')
+    .flatMap(item => item.content ?? []).filter(item => item.type === 'output_text');
+  if (result.status !== 'completed') throw new Error('Perplexity search did not complete.');
   return {
-    model: result.model ?? 'sonar',
-    answer: result.choices?.[0]?.message?.content ?? '',
-    sources: result.citations ?? [],
+    model: result.model ?? model,
+    answer: blocks.map(block => block.text).join('\n'),
+    sources: output.filter(item => item.type === 'search_results')
+      .flatMap(item => item.results ?? []).map(item => item.url),
   };
 }
 
